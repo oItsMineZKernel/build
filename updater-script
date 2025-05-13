@@ -1,0 +1,86 @@
+if is_substring("E2M", getprop("ro.product.device")) || is_substring("EVW", getprop("ro.product.device")) then    
+	ui_print(" ");
+	ui_print("-- Starting Zip Installer...");
+else
+    abort("This Device is Not Supported. This Kernel Only Supports E2M/EVW (Dynamo)");
+endif;
+
+ui_print(" ");
+ui_print("--------------------------------------------------");
+ui_print(" ");
+ui_print("          ____ __        __  ___ _          ____  ");
+ui_print("   ___   /  _// /_ ___  /  |/  /(_)___  ___/_  /  ");
+ui_print("  / _ \ _/ / / __/(_-< / /|_/ // // _ \/ -_)/ /_  ");
+ui_print("  \___//___/ \__//___//_/  /_//_//_//_/\__//___/  ");
+ui_print("     __ __                     __     _  _        ");
+ui_print("    / //_/___  ____ ___  ___  / /    (_)| |       ");
+ui_print("   / ,<  / -_)/ __// _ \/ -_)/ /    _   / /       ");
+ui_print("  /_/|_| \__//_/  /_//_/\__//_/    (_)_/_/        ");
+ui_print("                                    /_/           ");
+ui_print(" ");
+run_program("/sbin/sh", "-c", "sleep 3");
+ui_print("------------------ Kernel Info -------------------");
+ui_print(" ");
+ui_print(" Kernel Name: oItsMineZKernel");
+ui_print(" ");
+ui_print(" Kernel Version: ");
+ui_print(" ");
+ui_print(" Kernel Device: ");
+ui_print(" ");
+ui_print(" Kernel Based: 00WW_4_11I");
+ui_print(" ");
+ui_print(" Kernel Toolchain: ");
+ui_print(" ");
+ui_print(" Kernel Support: Android 10 (Go Edition)");
+ui_print(" ");
+ui_print(" Kernel Author: oItsMineZ");
+ui_print(" ");
+run_program("/sbin/sh", "-c", "sleep 1");
+ui_print("--------------------------------------------------");
+ui_print(" ");
+ui_print("-- Installing oItsMineZKernel RIGHT NOW!!!");
+ui_print(" ");
+ui_print("--------------------------------------------------");
+run_program("/sbin/sh", "-c", "sleep 1");
+
+ui_print(" ");
+ui_print("-- Flashing Kernel Image");
+package_extract_file("boot.img", "/dev/block/platform/soc/7824900.sdhci/by-name/boot");
+run_program("/sbin/sh", "-c", "sleep 1");
+
+ui_print(" ");
+ui_print("-- Unmounting Vendor Partition");
+ifelse(is_mounted("/vendor"), unmount("/vendor"));
+run_program("/sbin/sh", "-c", "sleep 1");
+
+ui_print(" ");
+ui_print("-- Mounting Vendor Partition");
+mount("ext4", "EMMC", "/dev/block/platform/soc/7824900.sdhci/by-name/vendor", "/vendor");
+run_program("/sbin/sh", "-c", "sleep 1");
+
+ui_print(" ");
+ui_print("-- Installing New Qualcomm Prima WiFi Driver");
+run_program("/sbin/sh", "-c", "rm -f /vendor/lib/modules/pronto/pronto_wlan.ko");
+package_extract_file("pronto_wlan.ko", "/vendor/lib/modules/pronto/pronto_wlan.ko");
+run_program("/sbin/sh", "-c", "chmod 644 /vendor/lib/modules/pronto/pronto_wlan.ko");
+run_program("/sbin/sh", "-c", "sleep 1");
+
+ui_print(" ");
+ui_print("-- Adding Kernel Addons Module to Storage");
+package_extract_file("module.zip", "/sdcard/oItsMineZKernel-Addons-Dynamo-v1.0.zip");
+run_program("/sbin/sh", "-c", "sleep 1");
+
+ui_print(" ");
+ui_print("--------------------------------------------------");
+ui_print(" ");
+ui_print("-- Installation Done!");
+ui_print(" ");
+ui_print("--------------------- Notes ----------------------");
+ui_print(" ");
+ui_print("-- Don't forget to install kernel addons module on");
+ui_print(" ");
+ui_print("   /sdcard/oItsMineZKernel-Addons-Dynamo-v1.0.zip");
+ui_print(" ");
+ui_print("--------------------------------------------------");
+ui_print(" ");
+set_progress(1.000000);
